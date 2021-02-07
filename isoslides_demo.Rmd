@@ -1,0 +1,299 @@
+---
+title: 'MATH 4720 / MSSC 5720 Statistical Methods'
+subtitle: "Course Information, Statistics and Data Collecting"
+author: 
+  name: 'Cheng-Han Yu <br> Department of Mathematical and Statistical Sciences <br> Marquette University'
+
+date: "`r format(Sys.time(), '%B %d %Y')`"
+output: 
+  ioslides_presentation:
+      widescreen: true
+      incremental: false
+      smaller: false
+      transition: slower
+      css: ioslides_style.css
+      logo: marquette_difference.jpg
+      fig_width: 5
+      fig_height: 3
+      fig_caption: true
+      mathjax: "default"
+      df_print: "default"
+      keep_md: false
+---
+<style>
+div.footnotes {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 10px;
+  width: 80%;
+  font-size: 0.6em;
+}
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('slide:not(.backdrop):not(.title-slide)').append('<div class=\"footnotes\">');
+
+  $('footnote').each(function(index) {
+    var text  = $(this).html();
+    var fnNum = (index+1).toString();
+    $(this).html(fnNum.sup());
+
+    var footnote   = fnNum + '. ' + text + '<br/>';
+    var oldContent = $(this).parents('slide').children('div.footnotes').html();
+    var newContent = oldContent + footnote;
+    $(this).parents('slide').children('div.footnotes').html(newContent);
+  });
+});
+</script>
+
+
+<!-- <style type="text/css"> -->
+<!-- body p { -->
+<!--   color: #000000; -->
+<!-- } -->
+<!-- </style> -->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Use one hash (#) to create a section | with background image {data-background=marquette_building.jpeg data-background-size=cover}
+
+```{r, message=FALSE}
+library(magick)
+gif <- image_read("https://jeroen.github.io/images/banana.gif")
+# this is the original gif
+gif
+gif2 <- image_animate(gif, loop = 3)
+# gif that will loop only two times
+gif2
+```
+
+
+# test color
+
+```{r}
+knitr::include_graphics("https://jeroen.github.io/images/banana.gif")
+```
+
+
+## Testing footnotes
+Some text.<footnote>And a footnote. http://stackoverflow.com</footnote>
+
+Some more text.<footnote>And *another* **footnote**</footnote>
+
+
+## Use two hashes (##) to set a frame's header
+
+Render bullets incrementally for some slides but not others you can (ab)use this syntax for blockquotes
+
+> - Eat eggs
+> - Drink coffee
+
+## Slide with Bullets {.smaller .build}
+
+Here are some interesting sentences.
+
+- Enable the smaller option on a slide-by-slide basis by adding the .smaller attribute to the slide header
+- Slides can also have a .build attribute that indicate that their content should be displayed incrementally. 
+- Slide with Bullets {.smaller .build}
+
+
+## Background images {data-background=mu_white.png data-background-size=50% data-background-position=right}
+
+- data-background=mu_blue.png 
+- data-background-size=cover, 100px, 50%, ...
+- data-background-position=center, left, right, ...
+- check https://www.w3schools.com/cssref/css3_pr_background.asp
+
+
+## Future Steps {#nextsteps .emphasized}
+Use Future Steps {#nextsteps .emphasized}
+That's see what happened here. Text color becomes blue and font size is 1.2 now.
+
+## Code highlighting
+
+```{r, echo = TRUE}
+### <b> 
+x <- 10
+y <- x * 2 
+### </b>
+z <- 1 + 3
+yy <- exp(4) + log(10)
+```
+When you want to help the audience focus exclusively on the highlighted region press the h key and the rest of the code will fade away.
+
+## Slide with R Output 
+
+```{r cars, echo = TRUE}
+summary(cars)
+```
+
+## Slide with Plot
+
+```{r pressure}
+plot(pressure)
+```
+
+## Tables {.columns-2}
+```md
+First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell
+```
+
+ First Header  | Second Header
+ ------------- | -------------
+ Content Cell  | Content Cell
+ Content Cell  | Content Cell
+ 
+
+## Dinner {.flexbox .vcenter}
+
+You can center content on a slide by adding the .flexbox and .vcenter attributes to the slide title.
+
+
+##  horizontally center content
+<div class="centered">
+This text is centered.
+</div>
+
+## two-column layout using the columns-2 class
+<div class="columns-2">
+  ![MU](mu_blue.png)
+
+  - Bullet 1
+  - Bullet 2
+  - Bullet 3
+</div>
+
+## Text color
+You can color content using base color classes red, blue, green, yellow, and gray (or variations of them, e.g., red2, red3, blue2, blue3, etc.).
+
+<div class="red2">
+This text is red2
+</div>
+
+
+## Presenter mode
+To enable presenter mode add ?presentme=true to the URL of the presentation. For example:
+my-presentation.html?presentme=true
+
+The presenter mode window will open and will always re-open with the presentation until it is disabled with:
+my-presentation.html?presentme=false
+
+<div class="notes">
+This is my *note*.
+
+- It can contain markdown
+- like this list
+</div>
+
+## Data frame printing
+You can enhance the default display of data frames via the df_print
+
+- check https://bookdown.org/yihui/rmarkdown/html-document.html#data-frame-printing
+
+```{r}
+letter <- c("A", "A-", "B+", "B", "B-", "C+", "C", "C-",
+                       "D+", "D", "D-", "F")
+percentage <- c("[94, 100]", "[90, 94)", "[87, 90)", "[84, 87)", "[80, 84)",
+                "[77, 80)", "[74, 77)", "[70, 74)", 
+                "[67, 70)", "[64, 67)", "[60, 64)", "[0, 60)")
+grade_dist <- data.frame(Grade = letter, Percentage = percentage)
+knitr::kable(grade_dist, longtable = TRUE, format = "html")
+# tibble::print.tbl_df(grade_dist)
+# rmarkdown::paged_table(grade_dist)
+# grade_dist
+```
+
+
+---- 
+- use four hyphens (- - - -) to create a new frame without a header
+
+
+
+## Add picture
+- add picture using 
+```md
+![caption](path) 
+```
+- ![MU_blue](mu_blue.png)
+
+
+## Display Modes
+
+- 'f' enable fullscreen mode
+- 'w' toggle widescreen mode
+- 'o' enable overview mode
+- 'h' enable code highlight mode
+- 'p' show presenter notes
+
+
+## Code - HTML
+```html
+<div class="notes">
+This is my *note*.
+
+- It can contain markdown
+- like this list
+
+</div>
+```
+
+## Code - CSS
+```css
+#nextsteps {
+   color: blue;
+}
+
+.emphasized {
+   font-size: 1.2em;
+}
+```
+
+## Code - Markdown
+```md
+A friend once said:
+
+> It's always better to give
+> than to receive.
+```
+
+```md
+---
+output:
+  ioslides_presentation:
+    incremental: true
+---
+```
+
+## Font color
+- Roses are <span style="color:red">red</span>, 
+- violets are <span style="color:blue">blue</span>.
+
+## Math Equations
+- $y = \beta_1x + \beta_0$
+- $\frac{1}{\sqrt{2\pi\sigma^2}}\exp\{-\frac{(x-\mu)^2}{\sigma^2}\}$
+
+## Includes
+- include content in the document header or before/after the document body 
+- includes:
+    + in_header: header.html
+    + before_body: doc_prefix.html
+    + after_body: doc_suffix.html
+    
+    
+## Share Options
+- include a file named _output.yaml within the directory
+- no YAML delimeters or enclosing output object are used in this file
+- _output.yaml
+    + ioslides_presentation:
+    +   widescreen: true
+    +   smaller: true
+
+
+
